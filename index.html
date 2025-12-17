@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Wish</title>
+    <style>
+        body { background: linear-gradient(to bottom, #002d04, #910000); color: white; text-align: center; font-family: 'Arial', sans-serif; margin: 0; overflow-x: hidden; }
+        .container { padding: 20px; position: relative; z-index: 10; }
+        
+        /* Wishing Line Format */
+        .wishing-line { 
+            font-size: 2.2rem; 
+            color: #FFD700; 
+            text-shadow: 2px 2px 10px #000; 
+            font-weight: bold; 
+            display: block; 
+            margin-top: 30px;
+        }
+        .highlight-name { color: #fff; text-decoration: underline; }
+
+        h1 { font-size: 3rem; text-shadow: 0 0 20px #FFD700; margin: 20px 0; }
+        
+        .input-card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; border: 2px dashed gold; margin: 25px auto; max-width: 380px; }
+        input { padding: 15px; width: 85%; border-radius: 30px; border: none; text-align: center; font-size: 1.2rem; font-weight: bold; }
+        
+        .share-box { margin-top: 25px; }
+        .btn { display: flex; align-items: center; justify-content: center; width: 85%; max-width: 320px; margin: 12px auto; padding: 12px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; }
+        .wa { background: #25D366; }
+        .tg { background: #0088cc; }
+        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+
+        .snow { position: fixed; top: -10px; color: white; user-select: none; z-index: 1; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(105vh); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="wishing-line" id="fullWishDisplay">
+            <span class="highlight-name" id="userNameDisplay">Aapke dost</span> ki taraf se Happy Christmas aapko
+        </div>
+
+        <h1>🎄 Merry Christmas 🎅</h1>
+
+        <div class="input-card">
+            <p>Apna Naam Likhein 👇</p>
+            <input type="text" id="userNameInput" placeholder="Yahan naam likhein..." oninput="updateLiveWish()">
+        </div>
+
+        <div class="share-box">
+            <button onclick="shareWA()" class="btn wa">WhatsApp par Bhejein</button>
+            <button onclick="shareTG()" class="btn tg">Telegram par Share</button>
+            <button onclick="copyLink()" class="btn ig">Link Copy Karein</button>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameFromUrl = urlParams.get('n');
+        if (nameFromUrl) {
+            document.getElementById('userNameDisplay').innerText = decodeURIComponent(nameFromUrl);
+        }
+
+        function updateLiveWish() {
+            let inputName = document.getElementById('userNameInput').value;
+            let display = document.getElementById('userNameDisplay');
+            display.innerText = inputName.trim() !== "" ? inputName : "Aapke dost";
+        }
+
+        function getFinalUrl() {
+            let name = document.getElementById('userNameDisplay').innerText;
+            return window.location.href.split('?')[0] + "?n=" + encodeURIComponent(name);
+        }
+
+        function shareWA() {
+            let name = document.getElementById('userNameDisplay').innerText;
+            let msg = "🎄 *" + name + " ki taraf se Happy Christmas aapko!* 🎅 👉 " + getFinalUrl();
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(msg));
+        }
+
+        function shareTG() {
+            let name = document.getElementById('userNameDisplay').innerText;
+            let msg = "🎄 *" + name + " ki taraf se Happy Christmas aapko!*";
+            window.open("https://t.me/share/url?url=" + encodeURIComponent(getFinalUrl()) + "&text=" + encodeURIComponent(msg));
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(getFinalUrl());
+            alert("✨ Link Copy Ho Gaya!");
+        }
+
+        setInterval(() => {
+            const flake = document.createElement('div');
+            flake.className = 'snow'; flake.innerHTML = '❄';
+            flake.style.left = Math.random() * 100 + 'vw';
+            flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(flake);
+            setTimeout(() => flake.remove(), 5000);
+        }, 200);
+    </script>
+</body>
+</html>
+<script type="text/javascript">
+  atOptions = {
+  	'key' : 'f00a87aaff10ae39fadf34fa63d14150',
+  	'format' : 'iframe',
+  	'height' : 60,
+  	'width' : 468,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="https://www.highperformanceformat.com/f00a87aaff10ae39fadf34fa63d14150/invoke.js"
+></script>
